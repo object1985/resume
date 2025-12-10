@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>都内SE - ポートフォリオスライド</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <style>
         /* 基本スタイル設定 */
         body { font-family: 'Segoe UI', 'Yu Gothic', YuGothic, sans-serif; margin: 0; padding: 0; background-color: #e9eef2; color: #333; line-height: 1.6; }
@@ -61,6 +62,59 @@
         .skill-list li { background-color: #fff; padding: 5px; border-radius: 3px; margin-bottom: 5px; border-bottom: 1px solid #eee; }
 
         .citation { font-size: 0.7em; color: #777; margin-top: 20px; text-align: right; }
+
+        /* ============== カルーセル (Swiper) 用のカスタムスタイル ============== */
+        .swiper-container-custom {
+            /* Swiperのコンテナをカードスタイルに合わせる */
+            width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+            border-radius: 12px; 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1); 
+            background-color: white;
+            padding: 20px; /* 内側の余白 */
+            box-sizing: border-box;
+            position: relative; /* ナビゲーションボタンの配置基準 */
+        }
+
+        /* 🌟 メイン以外のスライドを非表示（半透明）にする設定 🌟 */
+        .swiper-slide {
+            /* メイン以外のスライドを薄く表示する */
+            opacity: 0.3; 
+            transition: opacity 0.3s; /* スムーズに切り替える */
+        }
+
+        /* アクティブな（現在表示されている）スライドの設定 */
+        .swiper-slide-active {
+            /* メインのスライドは完全に表示する */
+            opacity: 1; 
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain; /* 画像全体を表示し、比率を維持 */
+            max-height: 80vh; /* 画面の高さに応じて最大高さを制限 */
+        }
+
+        /* ナビゲーションボタン (矢印) のデザイン */
+        .swiper-button-next, .swiper-button-prev {
+            color: #0056b3; 
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 44px; /* ボタンのサイズ調整 */
+            height: 44px;
+        }
+
+        /* ページネーション (ドット) のデザイン */
+        .swiper-pagination-bullet-active {
+            background: #0056b3; 
+        }
+
     </style>
 </head>
 <body>
@@ -74,6 +128,24 @@
             </p>
             <div style="height: 50px;"></div>
             <!-- <p class="citation">出典: 履歴書・職務経歴書20230117, スキルシート,</p> -->
+        </div>
+
+        <!-- ポートフォリオスライド -->
+        <div class="swiper-container-custom">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="img/resume01.png" alt="ポートフォリオスライド 1"></div>
+                <div class="swiper-slide"><img src="img/resume02.png" alt="ポートフォリオスライド 2"></div>
+                <div class="swiper-slide"><img src="img/resume03.png" alt="ポートフォリオスライド 3"></div>
+                <div class="swiper-slide"><img src="img/resume04.png" alt="ポートフォリオスライド 4"></div>
+                <div class="swiper-slide"><img src="img/resume05.png" alt="ポートフォリオスライド 5"></div>
+                <div class="swiper-slide"><img src="img/resume06.png" alt="ポートフォリオスライド 6"></div>
+                <div class="swiper-slide"><img src="img/resume07.png" alt="ポートフォリオスライド 7"></div>
+                <div class="swiper-slide"><img src="img/resume08.png" alt="ポートフォリオスライド 8"></div>
+            </div>
+            
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
 
         <!-- 1. 職務要約と強み (画像風カード形式) -->
@@ -331,5 +403,36 @@
         </div>
 
     </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        // Swiperを初期化
+        const swiper = new Swiper('.swiper-container-custom', {
+            // オプション設定
+            loop: true, // 無限ループ（resume08.pngの次にresume01.pngが表示される）
+            speed: 600, // スライドの切り替え速度 (ms)
+            
+            // 🌟 1画面に表示するスライドの数を1に固定し、メイン以外を隠す 🌟
+            slidesPerView: 1, 
+            centeredSlides: true, 
+
+            // ページネーション (ドット)
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            
+            // ナビゲーションボタン (矢印)
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // マウスドラッグだけでなく、タッチ操作も有効
+            simulateTouch: true,
+            grabCursor: true, // カーソルを掴むアイコンに変更
+        });
+    </script>
 </body>
 </html>
